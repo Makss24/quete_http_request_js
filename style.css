@@ -1,0 +1,13 @@
+h1{
+	text-align: center;
+	margin-top: 100px;
+}
+
+form{
+	text-align: center;
+	margin-top: 20px;
+}
+
+input, button{
+	margin: 20px;
+}
