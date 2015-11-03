@@ -1,76 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-  	<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  	<title>Quete HTTP request</title>
+    <title>Quete HTTP request</title>
 
-  	<!-- CSS -->
+    <!-- CSS -->
       <link rel="stylesheet" href="bootstrap.min.css">
       <link rel="stylesheet" href="style.css">
-      <script rel="javascript" href="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
   </head>
 
-  	<body>
+    <body>
 
-  		<h1><span class="titre">Quel temps fait-il?</span></h1>
-  		<form class="form-inline" id="frm">
-  			<div class="form-group">
-  				<!-- <label for="ville">Ville :</label><br/> -->
-  				<input type="text" class="form-control" id="city_name" placeholder="Entrez un nom de ville"/>
-  			</div>
-  			<div>
-  				<button type="submit" class="btn btn-default">Rechercher</button>
-  			</div>
-  		</form>
+      <h1><span class="titre">Quel temps fait-il?</span></h1>
+      <form class="form-inline" id="frm">
+        <div class="form-group">
+          <input type="text" class="form-control" id="city_name" placeholder="Entrez un nom de ville"/>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-default">Rechercher</button>
+        </div>
+      </form>
 
-  		<div id="reponse" class="hide1">
-  			<span id="name"></span>
-  			<span id="description"></span>
-  			<span id="icon"></span>
-  		  <span id="temp"></span>
-  		</div>
+      <div id="reponse" class="hide1">
+        <span id="name"></span>
+        <span id="description"></span>
+        <span id="icon"></span>
+        <span id="temp"></span>
+      </div>
 
 
-  		<script>
-  			function weather(city_name){
-  				city_name = encodeURIComponent(city_name); //Permet d'échaper les caractère spéciaux et éviter les erreurs dans le champ ID="city_name"
+      <script>
+        function weather(city_name){
+          city_name = encodeURIComponent(city_name); //Permet d'échaper les caractère spéciaux et éviter les erreurs dans le champ ID="city_name"
 
-  				var req = new XMLHttpRequest(); //Définition de la requete. (nouvelle requete XMLHttpRequest)
+          var req = new XMLHttpRequest(); //Définition de la requete. (nouvelle requete XMLHttpRequest)
 
-  				req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+city_name +'&units=metric&appid=bd82977b86bf27fb59a04b61b657fb6f'); //Application de la requete défini avant. La méthode GET est suffisante puisque qu'on ne souhaite que récupérer des valeurs et non les envoyer.
+          req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+city_name +'&units=metric&appid=bd82977b86bf27fb59a04b61b657fb6f'); //Application de la requete défini avant. La méthode GET est suffisante puisque qu'on ne souhaite que récupérer des valeurs et non les envoyer.
 
-  				req.onreadystatechange = function() { // On gère ici une requête asynchrone
+          req.onreadystatechange = function() { // On gère ici une requête asynchrone
 
               if (req.readyState == 4 && req.status == 200) { // Si le fichier est chargé sans erreur
-			        var data = JSON.parse(req.responseText);//Récupérer les données renvoyé par l'API dans la variable data.
-			        //console.log(data);
-  						document.getElementById('name').innerHTML ='<p><span class="bold">Nom de la ville : </span><br/> '+data.name+'</p>';
-					    document.getElementById('description').innerHTML = '<p><span class="bold">Temps :</span><br/>'+data.weather[0].description+'</p>';
-					    document.getElementById('icon').innerHTML = '<img src="http://openweathermap.org/img/w/'+data.weather[0].icon+'.png" alt="Icône météo"/>' ;
-  						document.getElementById('temp').innerHTML = '<p><span class="bold">Température :</span><br/>'+data.main.temp + '°C</p>';
-  						//document(sélection).getElementById(par id en argument).innerHTML(intègre dans balise HTML)=
-  					}
-  				}
+              var data = JSON.parse(req.responseText);//Récupérer les données renvoyé par l'API dans la variable data.
+              //console.log(data);
+              document.getElementById('name').innerHTML ='<p><span class="bold">Nom de la ville : </span><br/> '+data.name+'</p>';
+              document.getElementById('description').innerHTML = '<p><span class="bold">Temps :</span><br/>'+data.weather[0].description+'</p>';
+              document.getElementById('icon').innerHTML = '<img src="http://openweathermap.org/img/w/'+data.weather[0].icon+'.png" alt="Icône météo"/>' ;
+              document.getElementById('temp').innerHTML = '<p><span class="bold">Température :</span><br/>'+data.main.temp + '°C</p>';
+              //document(sélection).getElementById(par id en argument).innerHTML(intègre dans balise HTML)=
+            }
+          }
 
-  				req.send(null);//La requete n'a pas besoin d'argument supplémentaire, il faut le signaler pour que la requête s'exécute.
-  			}
+          req.send(null);//La requete n'a pas besoin d'argument supplémentaire, il faut le signaler pour que la requête s'exécute.
+        }
 
-  	//Déclenchement de la function
-  			// document(sélection).getElementById(cible l'id en argument).addEventListener(Ajout de l'écouteur sur "submit" et éxécute la function
-  			document.getElementById('frm').addEventListener('submit',function(e){
-  				e.preventDefault(); //
+    //Déclenchement de la function
+        // document(sélection).getElementById(cible l'id en argument).addEventListener(Ajout de l'écouteur sur "submit" et éxécute la function
+        document.getElementById('frm').addEventListener('submit',function(e){
+          e.preventDefault(); //
 
-  				weather(document.getElementById('city_name').value);
-  			})
-		  </script>
-
+          weather(document.getElementById('city_name').value);
+          //Récupération de la valeur sur l'élement portant pour ID 'city_name'
+        })
+      </script>
       <script src="jquery.js"></script>
     </body>
     <script>
+    // Changement de classe par script JQuery
       $(".btn").on('click', function () {
         $(".hide1").toggleClass('visible');
       });
+    // Changemnet de classe 2
       $(".btn").on('click', function () {
         $(".titre").toggleClass('titre-after');
       });
