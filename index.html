@@ -37,7 +37,7 @@
 
           var req = new XMLHttpRequest(); //Définition de la requete. (nouvelle requete XMLHttpRequest)
 
-          req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+city_name +'&units=metric&appid=bd82977b86bf27fb59a04b61b657fb6f'); //Application de la requete défini avant. La méthode GET est suffisante puisque qu'on ne souhaite que récupérer des valeurs et non les envoyer.
+          req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+city_name +'&units=metric&appid=51ddb0b85a5855de3be89b9c520b8f7f'); //Application de la requete défini avant. La méthode GET est suffisante puisque qu'on ne souhaite que récupérer des valeurs et non les envoyer.
 
           req.onreadystatechange = function() { // On gère ici une requête asynchrone
 
@@ -55,13 +55,15 @@
           req.send(null);//La requete n'a pas besoin d'argument supplémentaire, il faut le signaler pour que la requête s'exécute.
         }
 
-    //Déclenchement de la function
+    // Déclenchement de la function
         // document(sélection).getElementById(cible l'id en argument).addEventListener(Ajout de l'écouteur sur "submit" et éxécute la function
         document.getElementById('frm').addEventListener('submit',function(e){
           e.preventDefault(); //
 
           weather(document.getElementById('city_name').value);
-          //Récupération de la valeur sur l'élement portant pour ID 'city_name'
+            // Récupération de la valeur sur l'élement portant pour ID 'city_name'
+          document.getElementById('city_name').value = "";
+            // Vide le champs input
         })
       </script>
       <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
